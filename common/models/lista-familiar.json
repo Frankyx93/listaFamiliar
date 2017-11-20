@@ -12,7 +12,28 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "productos": {
+      "type": "hasMany",
+      "model": "Producto",
+      "foreignKey": ""
+    },
+    "usuarios": {
+      "type": "hasMany",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "propietario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": "owner"
+    },
+    "solicitudes": {
+      "type": "hasAndBelongsToMany",
+      "model": "Usuario",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

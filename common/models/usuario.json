@@ -16,7 +16,23 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "listaFamiliar": {
+      "type": "belongsTo",
+      "model": "ListaFamiliar",
+      "foreignKey": ""
+    },
+    "listaFamiliarEnPropiedad": {
+      "type": "hasOne",
+      "model": "ListaFamiliar",
+      "foreignKey": "owner"
+    },
+    "solicitudes": {
+      "type": "hasAndBelongsToMany",
+      "model": "ListaFamiliar",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
