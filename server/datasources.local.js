@@ -11,6 +11,6 @@ module.exports = {
     port: config.db_port,
     user: config.db_user,
     password: config.db_password,
-    database: 'lista_familiar'
+    database: 'listaFamiliar'
   }
 };
