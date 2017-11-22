@@ -48,5 +48,34 @@
       "property": "create"
     }
   ],
-  "methods": {}
+  "methods": {
+    "prototype.aceptarSolicitud": {
+      "accepts": [
+        {
+          "arg": "contexto",
+          "type": "object",
+          "required": true,
+          "description": "argumento necesario para recoger el token",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "miembrosLista",
+          "type": "array",
+          "root": true,
+          "description": "todos los miembros de la lista"
+        }
+      ],
+      "description": "acepta las solicitudes pendientes",
+      "http": [
+        {
+          "path": "/aceptarSolicitud",
+          "verb": "put"
+        }
+      ]
+    }
+  }
 }
