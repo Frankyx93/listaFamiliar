@@ -33,18 +33,18 @@ module.exports = function(Listafamiliar) {
      * @param {Function(Error, object)} callback
      */
 
-    ListaFamiliar.prototype.solicitar = function(contexto, callback) {
+    Listafamiliar.prototype.solicitar = function(contexto, callback) {
       var solicitud;
       //le damos a la variable el valor de this, porque no nos gusta trabajar con this
       var listaFamiliar = this;
       
       //usamos el add porque lo hemos buscado en la documentación, crea una solicitud con un valor que le pasamos(el usuario ID)
-      listaFamiliar.solicitudes.add(contexto.accessToken.userId, function(err){
+      listaFamiliar.solicitudes.add(contexto.req.accessToken.userId, function(err){
           if(err)callback(err);
           //esto se le devuelve al cliente, pero es parafernalia
           solicitud = {
             listaFamiliarId: listaFamiliar.id,
-            usuarioId: contexto.accessToken.userId
+            usuarioId: contexto.req.accessToken.userId
           };
           callback(null, solicitud);
       });
