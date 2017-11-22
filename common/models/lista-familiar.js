@@ -27,4 +27,29 @@ module.exports = function(Listafamiliar) {
                 }
         });
     });
+    /**
+     * crea una relación entre el usuario que solicita entrar a una lista y la lista
+     * @param {object} contexto con context se le pasa el id del usuario
+     * @param {Function(Error, object)} callback
+     */
+
+    ListaFamiliar.prototype.solicitar = function(contexto, callback) {
+      var solicitud;
+      //le damos a la variable el valor de this, porque no nos gusta trabajar con this
+      var listaFamiliar = this;
+      
+      //usamos el add porque lo hemos buscado en la documentación, crea una solicitud con un valor que le pasamos(el usuario ID)
+      listaFamiliar.solicitudes.add(contexto.accessToken.userId, function(err){
+          if(err)callback(err);
+          //esto se le devuelve al cliente, pero es parafernalia
+          solicitud = {
+            listaFamiliarId: listaFamiliar.id,
+            usuarioId: contexto.accessToken.userId
+          };
+          callback(null, solicitud);
+      });
+      // TODO
+      
+    };
+
 };
