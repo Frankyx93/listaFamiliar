@@ -9,17 +9,42 @@ module.exports = function(Usuario) {
 
    Usuario.prototype.aceptarSolicitud = function(contexto, callback) {
      var miembrosLista;
-     //consigo el id del solicitante NO SE SI ES NECESARIO EL .id
-     var idSolicitante = this.id;
+     var usuarioLogueadoListaFamiliarId;
+     
+     
+     //consigo el id del solicitante
+     var solicitante = this;
+     
+     
      //consigo el id de la lista familiar a la que pertenezco
-     //
-     //compruebo si el solicitante tiene alguna solicitud en mi lista
-     //
-     //lo meto en mi lista
-     //
-     //borro la solicitud
-     // TODO
-     callback(null, miembrosLista);
-   };
+     var usuarioLogueadoId = contexto.req.accessToken.userId;
+     Usuario.findById(usuarioLogueadoId, function(err, usuario){
+         if(err)callback(err);
+         usuarioLogueadoListaFamiliarId = usuario.listaFamiliarId;
 
+     
+     
+        //compruebo si el solicitante tiene alguna solicitud en mi lista
+        solicitante.solicitudes.findById(usuarioLogueadoListaFamiliarId, function(err, solicitud){
+           if(err)callback(err);
+
+
+       //lo meto en mi lista
+            solicitante.listaFamiliarId = usuarioLogueadoListaFamiliarId;
+
+
+       //borro la solicitud
+            solicitante.solicitudes.remove(solicitud, function(err, solicitud){
+                if(err)callback(err);
+                solicitante.save();
+                Usuario.find({where:{listaFamiliarId:usuarioLogueadoListaFamiliarId}}, function(err, instances){
+                    if(err)callback(err);
+                    miembrosLista = instances;
+       //devuelvo el array de miembros 
+                    callback(null, miembrosLista);
+                      });
+             });
+         });     
+     });
+   };
 };
