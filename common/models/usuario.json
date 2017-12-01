@@ -53,6 +53,13 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "aceptarSolicitud"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "rechazarSolicitud"
     }
   ],
   "methods": {
@@ -81,6 +88,34 @@
         {
           "path": "/aceptarSolicitud",
           "verb": "put"
+        }
+      ]
+    },
+    "prototype.rechazarSolicitud": {
+      "accepts": [
+        {
+          "arg": "contexto",
+          "type": "object",
+          "required": true,
+          "description": "argumento necesario para recoger el token",
+          "http": {
+            "source": "context"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "miembrosLista",
+          "type": "array",
+          "root": true,
+          "description": "devuelve todos los miembros de la lista"
+        }
+      ],
+      "description": "Elimina la solicitud de un usuario en mi lista familiar",
+      "http": [
+        {
+          "path": "/rechazarSolicitud",
+          "verb": "delete"
         }
       ]
     }
